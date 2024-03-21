@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-presence-heading" data-cy="PresenceCreateUpdateHeading">Create or edit a Presence</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_matriculeAdherant">Matricule Adherant</label>
+          <input
+            type="text"
+            class="form-control"
+            name="matriculeAdherant"
+            id="field_matriculeAdherant"
+            data-cy="matriculeAdherant"
+            formControlName="matriculeAdherant"
+          />
+          @if (
+            editForm.get('matriculeAdherant')!.invalid &&
+            (editForm.get('matriculeAdherant')!.dirty || editForm.get('matriculeAdherant')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('matriculeAdherant')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_statutPresence">Statut Presence</label>
+          <select
+            class="form-control"
+            name="statutPresence"
+            formControlName="statutPresence"
+            id="field_statutPresence"
+            data-cy="statutPresence"
+          >
+            <option [ngValue]="null"></option>
+            @for (statutPresence of statutPresenceValues; track $index) {
+              <option [value]="statutPresence">{{ statutPresence }}</option>
+            }
+          </select>
+          @if (
+            editForm.get('statutPresence')!.invalid && (editForm.get('statutPresence')!.dirty || editForm.get('statutPresence')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('statutPresence')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fichePresence">Fiche Presence</label>
+          <select
+            class="form-control"
+            id="field_fichePresence"
+            data-cy="fichePresence"
+            name="fichePresence"
+            formControlName="fichePresence"
+            [compareWith]="compareFichePresence"
+          >
+            <option [ngValue]="null"></option>
+            @for (fichePresenceOption of fichePresencesSharedCollection; track $index) {
+              <option [ngValue]="fichePresenceOption">{{ fichePresenceOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+
+entity FichePresence{
+	libelle String required,
+	dateJour Instant required,
+    description String,
+    codeEvenement Long required,
+    codeTypeEvenement Long required,
+}
+
+entity Presence{
+	matriculeAdherant String required,
+    statutPresence StatutPresence required,
+}
+
+ enum StatutPresence{
+ 	PRESENT, RETARD, ABSCENT
+ }
+ 
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	FichePresence to Presence{fichePresence},
+}
+
+// Set pagination options
+paginate all with pagination
+
+// Use Data Transfer Objects (DTO)
+ dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+// set filter
+filter *
