@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (presence) {
+      <div>
+        <h2 data-cy="presenceDetailsHeading"><span>Presence</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ presence.id }}</span>
+          </dd>
+          <dt><span>Matricule Adherant</span></dt>
+          <dd>
+            <span>{{ presence.matriculeAdherant }}</span>
+          </dd>
+          <dt><span>Statut Presence</span></dt>
+          <dd>
+            <span>{{ presence.statutPresence }}</span>
+          </dd>
+          <dt><span>Fiche Presence</span></dt>
+          <dd>
+            @if (presence.fichePresence) {
+              <div>
+                <a [routerLink]="['/fiche-presence', presence.fichePresence.id, 'view']">{{ presence.fichePresence.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/presence', presence.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

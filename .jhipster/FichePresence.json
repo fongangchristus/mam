@@ -1,0 +1,48 @@
+{
+  "annotations": {
+    "changelogDate": "20240320224127"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "entityTableName": "fiche_presence",
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateJour",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeEvenement",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "codeTypeEvenement",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "FichePresence",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "presence",
+      "otherEntityRelationshipName": "fichePresence",
+      "relationshipName": "presence",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
